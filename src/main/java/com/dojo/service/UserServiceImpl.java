@@ -1,5 +1,6 @@
 package com.dojo.service;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -82,12 +83,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public CustomerDetailsDTO getUserByUsername(String token,String username) throws InvalidTokenException, UserNotFoundException {
-		CustomerDetails customerDetails;
+		Optional<CustomerDetails> customerDetails = userRepository.findById(username);
 		if(!getValidity(token).isValid()) throw new InvalidTokenException("Token Invalid");
 		log.debug("fetching user from database");
-		if(userRepository.findById(username).isPresent()) {
-			customerDetails = userRepository.findById(username).get();			
-			return convertCustomerDetailsToDTO(customerDetails);
+		if(customerDetails.isPresent()) {
+			return convertCustomerDetailsToDTO(customerDetails.get());
 		}else throw new UserNotFoundException("User Not Found");		
 	}
 	
