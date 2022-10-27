@@ -22,28 +22,19 @@ import lombok.Setter;
 @Component
 public class CustomerDetailsDTO {
 
-	@Id
 	private String username;
-	@NotBlank
 	private String password;
-	@NotBlank
     private String name;
-	@NotBlank
     private String address;
-	@NotBlank
     private String state;
-	@NotBlank
     private String country;
-	@NotBlank
 	@Email(message = "email is not valid")
     private String email;
-	@NotBlank
     private String PAN;
 	@Column(length = 10)
     private long contactNumber;
 	@NotNull
     private LocalDate DOB;
-	@NotBlank
     private String accountType;
 	
 	
