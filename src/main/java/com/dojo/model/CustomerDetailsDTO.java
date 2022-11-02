@@ -3,9 +3,7 @@ package com.dojo.model;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
