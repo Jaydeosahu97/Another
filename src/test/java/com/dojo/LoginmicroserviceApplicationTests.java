@@ -11,5 +11,4 @@ class LoginmicroserviceApplicationTests {
 		String[] str = {"main","test"};
 		LoginmicroserviceApplication.main(str);
 	}
-
 }
