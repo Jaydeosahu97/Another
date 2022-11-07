@@ -29,7 +29,7 @@ public class RestExceptionHandler {
 	@ExceptionHandler({ UnauthorizedException.class,InvalidTokenException.class})
 	public ResponseEntity<?> handleUnauthorizedExceptions(Exception ex) {
 		log.error("Unauthorized request...");
-		return ResponseEntity.badRequest()
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
 				.body(new MessageResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED));
 	}
 
