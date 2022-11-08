@@ -6,12 +6,12 @@ Feature: Login to bank management system
     When performing login
     Then login is successful
 
-  Scenario: User login with bad credential
+  Scenario: Login failure with bad credential
     Given user enters invalid credential
     When performing login
     Then error message displayed
 
-Scenario: Logged in user trying to validate itself
-Given user provides token
-When performing validity
-Then validity status is shown
+  Scenario: Logged in user trying to validate itself
+    Given user provides token
+    When performing validity
+    Then validity status is shown

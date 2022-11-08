@@ -1,9 +1,12 @@
 Feature: Registration in Bank Management System
-Customer should be able to register in bank when all the requied fields are filled properly
+  Customer should be able to register in bank when all the requied fields are filled properly
 
-Scenario: Registration with all the details filled
-Given Customer provide valid details
-When customer submit the details
-Then Registration will be successful
+  Scenario Outline: Customer Registration with valid details
+    Given Customer provide <detail> details
+    When customer submit the details
+    Then Registration <status>
 
-Scenario: Registration with wrong password pattern
+    Examples: 
+      | detail   | status     |
+      | new      | successful |
+      | existing | failure    |

@@ -7,11 +7,11 @@
 		<version>2.7.4</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com.dojo</groupId>
 	<artifactId>loginmicroservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>loginmicroservice</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Performs login and registration of user</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
