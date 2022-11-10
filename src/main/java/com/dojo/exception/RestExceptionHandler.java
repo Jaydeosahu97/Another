@@ -64,7 +64,7 @@ public class RestExceptionHandler {
 	@ExceptionHandler(ConstraintException.class)
 	public ResponseEntity<MessageResponse> handleConstraintException(ConstraintException ex) {
 
-		log.error("failed constraint");
+		log.error(ex.getMessage());
 		return ResponseEntity.badRequest().body(new MessageResponse(ex.getMessage(), HttpStatus.BAD_REQUEST));
 	}
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

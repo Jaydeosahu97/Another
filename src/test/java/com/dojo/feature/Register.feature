@@ -10,3 +10,15 @@ Feature: Registration in Bank Management System
       | detail   | status     |
       | new      | successful |
       | existing | failure    |
+      | empty    | failure    |
+
+  Scenario Outline: Customer Provide invalid details
+    Given Customer provide invalid <field>
+    When customer submit the details
+    Then Error message with bad Request shown
+
+    Examples: 
+      | field    |
+      | password |
+      | pan      |
+      | email    |

@@ -6,7 +6,6 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(stepNotifications = true, features = "feature", glue = { "stepDefinition" })
+@CucumberOptions(features = "src/test/java/com/dojo/feature", glue = "com.dojo.stepDefinition.StepDefinition")
 public class TestRunner {
-
 }
