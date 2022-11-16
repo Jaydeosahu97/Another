@@ -74,4 +74,10 @@ public class RestExceptionHandler {
 		log.error("User Not Found");
 		return ResponseEntity.badRequest().body(new MessageResponse(ex.getMessage(), HttpStatus.BAD_REQUEST));
 	}
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(NullPointerException.class)
+	public ResponseEntity<MessageResponse> handleNullPointerException(NullPointerException ex){
+		log.error("User Not Found");
+		return ResponseEntity.badRequest().body(new MessageResponse("One or more fields are null", HttpStatus.BAD_REQUEST));
+	}
 }

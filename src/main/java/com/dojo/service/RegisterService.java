@@ -4,11 +4,9 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import com.dojo.exception.ConstraintException;
 import com.dojo.model.CustomerDetails;
 import com.dojo.model.CustomerDetailsDTO;
@@ -34,21 +32,31 @@ public class RegisterService {
 	 * @throws ConstraintException
 	 */
 	public SuccessResponse registerUser(CustomerDetailsDTO user) throws ConstraintException {
-		if (user != null && !userRepo.existsById(user.getUsername())) {
+		if (!emptyFieldCheck(user) && !userRepo.existsById(user.getUsername())) {
 			log.info("User registration started");
 			if (passwordLengthValidation(user))
 				throw new ConstraintException("password length less than 8");
 			if (panValidation(user.getPAN()))
-				throw new ConstraintException("PAN already exist");
+				throw new ConstraintException("PAN already exist or empty");
 			if (!emailValidation(user.getEmail()))
 				throw new ConstraintException("Email validation failed");
 			CustomerDetails customer = convertCustomerDetailsDTOtoEntity(user);
 			userRepo.save(customer);
 			log.info("User Registered Successfully");
 			return onSuccessResponse();
+		} else {
+			log.info("User Registration failed");
+			throw new ConstraintException("username already exist or no data passed");
 		}
-		log.info("User Registration failed");
-		throw new ConstraintException("username already exist or no data passed");
+	}
+
+	private boolean emptyFieldCheck(CustomerDetailsDTO user) {
+		boolean empty = user.getUsername().isBlank() || user.getPassword().isBlank() || user.getName().isBlank()
+				|| user.getAddress().isBlank() || user.getState().isBlank() || user.getCountry().isBlank()
+				|| user.getDOB().toString().isBlank() || user.getAccountType().isBlank()
+				|| (int) user.getContactNumber() == 0;
+		log.info("empty" + empty);
+		return empty;
 	}
 
 	private CustomerDetails convertCustomerDetailsDTOtoEntity(CustomerDetailsDTO customerDetailsDTO) {
