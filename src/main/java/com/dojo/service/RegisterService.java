@@ -31,14 +31,17 @@ public class RegisterService {
 	 * 
 	 * @param offer
 	 * @return {@link SuccessResponse}
-	 * @throws ConstraintException 
+	 * @throws ConstraintException
 	 */
 	public SuccessResponse registerUser(CustomerDetailsDTO user) throws ConstraintException {
 		if (user != null && !userRepo.existsById(user.getUsername())) {
 			log.info("User registration started");
-			if(passwordLengthValidation(user)) throw new ConstraintException("password length less than 8");
-			if(panValidation(user.getPAN())) throw new ConstraintException("PAN already exist");
-			if(!emailValidation(user.getEmail())) throw new ConstraintException("Email validation failed");
+			if (passwordLengthValidation(user))
+				throw new ConstraintException("password length less than 8");
+			if (panValidation(user.getPAN()))
+				throw new ConstraintException("PAN already exist");
+			if (!emailValidation(user.getEmail()))
+				throw new ConstraintException("Email validation failed");
 			CustomerDetails customer = convertCustomerDetailsDTOtoEntity(user);
 			userRepo.save(customer);
 			log.info("User Registered Successfully");
@@ -47,7 +50,7 @@ public class RegisterService {
 		log.info("User Registration failed");
 		throw new ConstraintException("username already exist or no data passed");
 	}
-	
+
 	private CustomerDetails convertCustomerDetailsDTOtoEntity(CustomerDetailsDTO customerDetailsDTO) {
 		CustomerDetails customerDetails = new CustomerDetails();
 		customerDetails.setUsername(customerDetailsDTO.getUsername());
@@ -70,18 +73,18 @@ public class RegisterService {
 		successResponse.setTimestamp(LocalDate.now());
 		return successResponse;
 	}
-	
+
 	public boolean passwordLengthValidation(CustomerDetailsDTO user) {
-		return user.getPassword().length()<8;
+		return user.getPassword().length() < 8;
 	}
-	
+
 	private boolean emailValidation(String email) {
 		String regex = "^(.+)@(.+)$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(email);
 		return matcher.matches();
 	}
-	
+
 	private boolean panValidation(String pan) {
 		Optional<CustomerDetails> details = userRepo.findByPAN(pan);
 		return details.isPresent();
