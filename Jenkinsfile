@@ -19,7 +19,7 @@ pipeline {
         }
         stage('deploy'){
             steps{
-                echo 'deploy'
+                bat 'java -jar loginmicroservice-0.0.1-SNAPSHOT.jar'
             }
         }
     }
