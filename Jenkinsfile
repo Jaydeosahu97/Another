@@ -19,7 +19,7 @@ pipeline {
         }
         stage('deploy'){
             steps{
-                bat 'java -jar target\loginmicroservice-0.0.1-SNAPSHOT.jar'
+                bat 'java -jar target/loginmicroservice-0.0.1-SNAPSHOT.jar'
             }
         }
     }
