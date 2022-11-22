@@ -17,11 +17,6 @@ pipeline {
                 bat 'mvn test'
             }
         }
-        stage('deploy'){
-            steps{
-                bat 'java -jar target/loginmicroservice-0.0.1-SNAPSHOT.jar'
-            }
-        }
         stage('static code analysis'){
             steps{
                 script{
@@ -36,6 +31,11 @@ pipeline {
                 script{
                     waitForQualityGate abortPipeline: false, credentialsId: 'sonar-api-key'
                 }
+            }
+        }
+        stage('deploy'){
+            steps{
+                echo 'deploy'
             }
         }
     }
