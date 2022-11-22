@@ -22,5 +22,21 @@ pipeline {
                 bat 'java -jar target/loginmicroservice-0.0.1-SNAPSHOT.jar'
             }
         }
+        stage('static code analysis'){
+            steps{
+                script{
+                    withSonarQubeEnv(credentialsId: 'sonar-api-key') {
+                    bat 'mvn clean package sonar:sonar'
+                }
+                }
+            }
+        }
+        stage('Quality Gate status'){
+            steps{
+                script{
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-api-key'
+                }
+            }
+        }
     }
 }

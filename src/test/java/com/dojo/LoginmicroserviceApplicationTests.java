@@ -8,6 +8,7 @@ class LoginmicroserviceApplicationTests {
 
 	@Test
 	void contextLoads() {
+		String[] str = {"main","test"};
+		LoginmicroserviceApplication.main(str);
 	}
-
 }
