@@ -22,5 +22,21 @@ pipeline {
                 echo 'deploy'
             }
         }
+        stage('static code analysis'){
+            steps{
+                script{
+                    withSonarQubeEnv(credentialsId: 'sonar-api-key') {
+                    bat 'mvn clean package sonar:sonar'
+                }
+                }
+            }
+        }
+        stage('Quality Gate status'){
+            steps{
+                script{
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-api-key'
+                }
+            }
+        }
     }
 }
