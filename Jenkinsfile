@@ -28,11 +28,7 @@ pipeline {
         }
         stage('Quality Gate status'){
             steps{
-                script{
-                    timeout(time:1,unit:'HOURS'){
                         waitForQualityGate abortPipeline: false, credentialsId: 'sonar-api-key'
-                    }
-                }
             }
         }
         stage('deploy'){
