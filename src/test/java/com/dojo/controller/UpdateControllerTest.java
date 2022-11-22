@@ -6,17 +6,15 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
 import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-
+import org.springframework.http.ResponseEntity;
 import com.dojo.exception.InvalidTokenException;
 import com.dojo.exception.UserNotFoundException;
 import com.dojo.model.AuthResponse;
-import com.dojo.model.CustomerDetails;
 import com.dojo.model.CustomerDetailsDTO;
 import com.dojo.model.SuccessResponse;
 import com.dojo.repository.UserRepository;
@@ -42,12 +40,11 @@ public class UpdateControllerTest {
 	void test_updateDetails() {
 		//given
 		CustomerDetailsDTO user = new CustomerDetailsDTO("test","test1234","test","test","test","test","test","test",1234567890,LocalDate.of(2020, 1, 8),"testAccount");
-		CustomerDetails customerDetails = new CustomerDetails("test","test1234","test","test","test","test","test","test",1234567890,LocalDate.of(2020, 1, 8),"testAccount");
 		given(updateService.updateUser(user)).willReturn(new SuccessResponse("Success",HttpStatus.ACCEPTED, LocalDate.now()));
 		//when
-		SuccessResponse updateDetails = UpdateController.updateDetails(user);
+		ResponseEntity<SuccessResponse> updateDetails = UpdateController.updateDetails(user);
 		//then
-		assertEquals("Success", updateDetails.getMessage());
+		assertEquals(HttpStatus.OK, updateDetails.getStatusCode());
 		
 	}
 	

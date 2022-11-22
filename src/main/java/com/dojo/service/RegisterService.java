@@ -55,7 +55,6 @@ public class RegisterService {
 				|| user.getAddress().isBlank() || user.getState().isBlank() || user.getCountry().isBlank()
 				|| user.getDOB().toString().isBlank() || user.getAccountType().isBlank()
 				|| (int) user.getContactNumber() == 0;
-		log.info("empty" + empty);
 		return empty;
 	}
 

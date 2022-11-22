@@ -49,6 +49,6 @@ public class LoginControllerTest {
 	}
 	@Test
 	void test_welcome() {
-		loginController.welcome();
+		assertEquals(HttpStatus.OK,loginController.welcome().getStatusCode());
 	}
 }

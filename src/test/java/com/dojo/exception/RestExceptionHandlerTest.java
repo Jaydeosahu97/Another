@@ -1,21 +1,12 @@
 package com.dojo.exception;
 
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.MethodParameter;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingRequestHeaderException;
-
-import com.dojo.model.MessageResponse;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Header;
@@ -72,7 +63,6 @@ public class RestExceptionHandlerTest {
 	@Test
 	void handleNullPonterException() {
 		NullPointerException nullPointerException = new NullPointerException();
-		ResponseEntity<MessageResponse> responseEntity = ResponseEntity.badRequest().body(new MessageResponse("One or more fields are null", HttpStatus.BAD_REQUEST));
 		assertEquals("One or more fields are null",restExceptionHandler.handleNullPointerException(nullPointerException).getBody().getMessage()); 
 		
 	}

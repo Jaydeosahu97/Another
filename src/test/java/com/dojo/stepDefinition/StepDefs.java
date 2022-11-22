@@ -3,6 +3,7 @@ package com.dojo.stepDefinition;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,7 +25,7 @@ import io.cucumber.spring.CucumberContextConfiguration;
 @AutoConfigureMockMvc
 @CucumberContextConfiguration
 @SpringBootTest
-public class StepDefinition {
+public class StepDefs {
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -83,7 +84,7 @@ public class StepDefinition {
 	}
 
 	@Given("^Customer provide (.+) details$")
-	public void customer_provide_details(String detail) throws Throwable {
+	public void customer_provide_details(String detail){
 		if (detail.equals("empty"))
 			customerDetails = "{\"name\":\"rajkumar\",\"address\":\"badarpur, delhi\",\"state\":\"Delhi\",\"country\":\"India\",\"email\":\"raj@gmail.com\",\"pan\":\"ASDFG1234T\",\"contactNumber\":1233445678,\"dob\":\"1996-01-21\",\"accountType\":\"accountType\"}";
 		else
@@ -91,13 +92,13 @@ public class StepDefinition {
 	}
 
 	@When("^customer submit the details$")
-	public void customer_submit_the_details() throws Throwable {
+	public void customer_submit_the_details() throws Exception {
 		action = mockMvc.perform(post("/registerUser").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(customerDetails));
 	}
 
 	@Then("^Registration (.+)$")
-	public void registration(String status) throws Throwable {
+	public void registration(String status) throws Exception{
 		action.andExpect(status.equals("successful") ? status().isOk() : status().isBadRequest());
 		if (status.equalsIgnoreCase("failure") && userRepository.existsById("raj"))
 			userRepository.deleteById("raj");

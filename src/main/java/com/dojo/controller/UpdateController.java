@@ -27,23 +27,26 @@ import lombok.extern.slf4j.Slf4j;
 public class UpdateController {
 	@Autowired
 	UserRepository userRepo;
-	
+
 	@Autowired
 	UserServiceImpl userServiceImpl;
-	
+
 	@Autowired
 	UpdateService updateService;
+
 	@PutMapping("updateDetails")
-	public SuccessResponse updateDetails(@RequestBody CustomerDetailsDTO customer){
+	public ResponseEntity<SuccessResponse> updateDetails(@RequestBody CustomerDetailsDTO customer) {
 		log.info("update started");
 		log.info("update completed");
-		return updateService.updateUser(customer);
-		
+		return ResponseEntity.ok(updateService.updateUser(customer));
 	}
+
 	@PostMapping("/finduser/{username}")
-	public ResponseEntity<CustomerDetailsDTO> findById(@RequestHeader("Authorization") String token,@PathVariable String username) throws InvalidTokenException, UserNotFoundException{
-	log.debug("inside findbyId method");
-		return new ResponseEntity<CustomerDetailsDTO>( userServiceImpl.getUserByUsername(token,username),HttpStatus.OK);
+	public ResponseEntity<CustomerDetailsDTO> findById(@RequestHeader("Authorization") String token,
+			@PathVariable String username) throws InvalidTokenException, UserNotFoundException {
+		log.debug("inside findbyId method");
+		return new ResponseEntity<CustomerDetailsDTO>(userServiceImpl.getUserByUsername(token, username),
+				HttpStatus.OK);
 	}
-	
+
 }
