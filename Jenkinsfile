@@ -4,17 +4,16 @@ pipeline {
         stage('Build') {
             steps {
                 bat 'mvn clean'
-                // bat 'mvn install'
-            }
-        }
-        stage('package'){
-            steps{
-            bat 'mvn package'
             }
         }
         stage('test'){
             steps {
                 bat 'mvn test'
+            }
+        }
+        stage('package'){
+            steps{
+            bat 'mvn package'
             }
         }
         stage('static code analysis'){
