@@ -27,7 +27,7 @@ public class RestExceptionHandler {
 	 */
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	@ExceptionHandler({ UnauthorizedException.class,InvalidTokenException.class})
-	public ResponseEntity<?> handleUnauthorizedExceptions(Exception ex) {
+	public ResponseEntity<MessageResponse> handleUnauthorizedExceptions(Exception ex) {
 		log.error("Unauthorized request...");
 		return ResponseEntity.badRequest()
 				.body(new MessageResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED));

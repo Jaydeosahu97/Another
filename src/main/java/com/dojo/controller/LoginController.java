@@ -28,8 +28,8 @@ public class LoginController {
 	/**
 	 * authenticates the user
 	 * 
-	 * @param userModel
-	 * @return userToken
+	 * @param user
+	 * @return ResponseEntity<>
 	 * @throws UnauthorizedException
 	 */
 	@PostMapping("/login")

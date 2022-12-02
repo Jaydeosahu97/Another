@@ -4,7 +4,6 @@ pipeline {
         stage('Build') {
             steps {
                 bat 'mvn clean'
-                // bat 'mvn install'
             }
         }
         stage('package'){
@@ -37,7 +36,7 @@ pipeline {
         }
         stage('deploy'){
             steps{
-                echo 'deploy'
+                bat 'mvn spring-boot:run'
             }
         }
     }
